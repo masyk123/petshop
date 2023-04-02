@@ -1,0 +1,28 @@
+function marquee() {
+  const marquee = document.querySelector(".marquee");
+  const marqueeContent = document.querySelector(".marquee-content");
+  const marqueeCopy = marqueeContent.cloneNode(true);
+  marquee.appendChild(marqueeCopy);
+
+  let marqueeWidth = marqueeContent.offsetWidth;
+
+  function animateMarquee(timestamp) {
+    const runtime = timestamp / 1000;
+    const distance = runtime * 100;
+    const speed = 30;
+
+    marquee.style.transform = `translateX(-${distance}px)`;
+
+    if (distance > marqueeWidth) {
+      window.requestAnimationFrame(animateMarquee);
+    } else {
+      marquee.removeChild(marqueeCopy);
+      window.requestAnimationFrame(animateMarquee);
+    }
+  }
+
+  window.requestAnimationFrame(animateMarquee);
+}
+
+marquee();
+
